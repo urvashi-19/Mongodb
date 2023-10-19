@@ -4,7 +4,7 @@ const app = express()
 app.use(express.urlencoded({extended:false}))
 
 
-// Step1 : reuire the mongoose model
+// Step1 : require the mongoose model
 const mongoose = require('mongoose');
 
 // Step2 : make the connection
