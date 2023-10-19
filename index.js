@@ -51,32 +51,6 @@ const userSchema = new mongoose.Schema({
 const User =  mongoose.model("user" , userSchema);
 
 
-app.post('/api/users' , async (req , res)=>{
-
-    
-    const body = req.body;
-    // setting the status code
-    if(!body || !body.first_name || !body.gender){
-        return res.status(400).json({msg:"somethings is pending"})
-    }
-    
-    // adding data to the db
-      
-    const result = await User.create({
-        firstName : body.first_name,
-        lastName: body.last_name,
-        email: body.email,
-        gender: body.gender,
-        jobTitle: body.job_title
-    })
-
-    console.log("result: " , result)
-
-   return  res.status(201).json({msg: "successfully done.."})
- 
-})
-
-
 app.get('/users' , async(req , res)=>{
   
 
@@ -114,6 +88,34 @@ app.get('/api/users/:id' , async (req , res)=>{
 
 })
 
+
+
+app.post('/api/users' , async (req , res)=>{
+
+    
+    const body = req.body;
+    // setting the status code
+    if(!body || !body.first_name || !body.gender){
+        return res.status(400).json({msg:"somethings is pending"})
+    }
+    
+    // adding data to the db
+      
+    const result = await User.create({
+        firstName : body.first_name,
+        lastName: body.last_name,
+        email: body.email,
+        gender: body.gender,
+        jobTitle: body.job_title
+    })
+
+    console.log("result: " , result)
+
+   return  res.status(201).json({msg: "successfully done.."})
+ 
+})
+
+
 app.patch('/api/users/:id' , async (req , res)=>{
     //for  edit(patch) we need id
     await User.findByIdAndUpdate(req.params.id , {lastName : "changes"});
@@ -126,13 +128,6 @@ app.delete('/api/users/:id' , async(req , res)=>{
     await User.findByIdAndDelete(req.params.id);
     return res.json({status:"success"});
 })
-
-
-
-
-
-
-
 
 
 
